@@ -1,0 +1,50 @@
+{% extends "admin/base_site.html" %} {% block content %} {% load static %}
+<!-- HTML -->
+<div id="deck-gl-canvas">
+  <div id="legend">
+    {% for organisation in organisations %}
+    <div
+      class="mapbox-checkbox-wrapper"
+      onclick="event.preventDefault(); handleOrganisationClick('{{ organisation.id }}', this)"
+    >
+      <label class="mapbox-checkbox-label" for="checkbox-{{organisation.id}}">
+        <input
+          type="checkbox"
+          class="mapbox-checkbox"
+          id="checkbox-{{organisation.id}}"
+          name="checkbox-{{organisation.id}}"
+          checked
+          onclick="handleCheckboxClick(this)"
+        />
+        {{organisation.name}}
+      </label>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- Add json information -->
+<div class="json">{{ wells|json_script:"wells_json" }}</div>
+<div class="json">{{ organisations|json_script:"organisations_json" }}</div>
+<div class="json">
+  {{ groundwater_level_dossiers|json_script:"groundwater_level_dossiers_json" }}
+</div>
+<div class="json">{{ maptiler_key|json_script:"maptiler_key_json" }}</div>
+
+<!-- Link to css -->
+<link href="{% static 'gmw/gmw_map.css' %}" rel="stylesheet" />
+
+<!-- Link to packages -->
+<link
+  href="https://api.tiles.mapbox.com/mapbox-gl-js/v1.13.0/mapbox-gl.css"
+  rel="stylesheet"
+/>
+<script src="
+https://unpkg.com/deck.gl@8.9.35/dist.min.js"
+></script>
+<script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.13.0/mapbox-gl.js"></script>
+
+<!-- Link to javascript -->
+<script src="{% static 'gmw/gmw_map.js' %}"></script>
+
+{% endblock %}
