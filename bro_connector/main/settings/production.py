@@ -33,7 +33,7 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 DATABASES = {
     "default": {
         "ENGINE": "django.contrib.gis.db.backends.postgis",
-        "NAME": "grondwatermeetnet",
+        "NAME": "test_db",
         "USER": p_user,
         "PASSWORD": p_password,
         "HOST": p_host,
