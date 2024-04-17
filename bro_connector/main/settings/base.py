@@ -12,17 +12,23 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
-
 import django.db.models.options as options
+from main.localsecret import *
 
 options.DEFAULT_NAMES = options.DEFAULT_NAMES + ("schema",)
-
-from main.localsecret import *
 
 ENVIRONMENT = "staging"
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
+# If you want to use a module, also import its settings
+# MODULE OPTIONS: gmw, gmn, gld, frd
+MODULES = ["gmw", "frd", "gld", "gmn"]
+from gmw.settings import *
+from gld.settings import *
+from frd.settings import *
+from gmn.settings import *
 
 
 # Quick-start development settings - unsuitable for production
@@ -41,10 +47,6 @@ ALLOWED_HOSTS = ["*"]
 INSTALLED_APPS = [
     "jazzmin",
     "main",
-    "gld",
-    "gmw",
-    "gmn",
-    "frd",
     "rest_framework",
     "reversion",
     "reversion_compare",
@@ -61,6 +63,9 @@ INSTALLED_APPS = [
     "django_plotly_dash.apps.DjangoPlotlyDashConfig",
     "django_static_jquery",
 ]
+
+for module in MODULES:
+    INSTALLED_APPS.append(module.lower())
 
 MAP_WIDGETS = {
     "GooglePointFieldWidget": (
@@ -115,88 +120,6 @@ if ENVIRONMENT == "production":
 else:
     demo = True
     welcome_sign = "Inloggen (testomgeving)"
-
-
-# BROCONVERTER SETTINGS
-gld_SETTINGS = {
-    "bro_info_demo": {
-        "projectnummer": 1,
-        "token": {
-            "user": bro_demo_user,
-            "pass": bro_demo_password,
-        },
-    },
-    "bro_info_bro_connector": {
-        "token": {
-            "user": bro_user,
-            "pass": bro_password,
-        },
-    },
-    "monitoringnetworks": None,
-    "demo": demo,
-    "additions_dir": os.path.join(BASE_DIR, "gld/additions"),
-    "startregistrations_dir": os.path.join(BASE_DIR, "gld/startregistrations"),
-    "api_version": "v2",
-}
-
-gmw_SETTINGS = {
-    "bro_info_demo": {
-        "projectnummer": 1,
-        "token": {
-            "user": bro_demo_user,
-            "pass": bro_demo_password,
-        },
-    },
-    "bro_info_bro_connector": {
-        "token": {
-            "user": bro_user,
-            "pass": bro_password,
-        },
-    },
-    "demo": demo,
-    "registrations_dir": os.path.join(BASE_DIR, "gmw\\registrations"),
-    "api_version": "v2",
-}
-
-gmn_SETTINGS = {
-    "bro_info_demo": {
-        "projectnummer": 1,
-        "token": {
-            "user": bro_demo_user,
-            "pass": bro_demo_password,
-        },
-    },
-    "bro_info_bro_connector": {
-        "token": {
-            "user": bro_user,
-            "pass": bro_password,
-        },
-    },
-    "monitoringnetworks": None,
-    "demo": demo,
-    "additions_dir": os.path.join(BASE_DIR, "gmn/additions"),
-    "registrations_dir": os.path.join(BASE_DIR, "gmn\\registrations"),
-    "removals_dir": os.path.join(BASE_DIR, "gmn/removals"),
-    "closures_dir": os.path.join(BASE_DIR, "gmn/closures"),
-}
-
-FRD_SETTINGS = {
-    "bro_info_demo": {
-        "projectnummer": 1,
-        "token": {
-            "user": bro_demo_user,
-            "pass": bro_demo_password,
-        },
-    },
-    "bro_info_bro_connector": {
-        "token": {
-            "user": bro_user,
-            "pass": bro_password,
-        },
-    },
-    "demo": demo,
-    "api_version": "v2",
-}
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
