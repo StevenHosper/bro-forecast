@@ -47,6 +47,7 @@ ALLOWED_HOSTS = ["*"]
 INSTALLED_APPS = [
     "jazzmin",
     "main",
+    "tools",
     "rest_framework",
     "reversion",
     "reversion_compare",
@@ -201,7 +202,6 @@ ADMIN_REORDER = (
         "app": "gmw",
         "label": "Grondwatermonitoringput (GMW)",  # Provincie Zeeland GWM - Data
         "models": (
-            "gmw.Map",
             "gmw.GroundwaterMonitoringWellStatic",
             "gmw.GroundwaterMonitoringWellDynamic",
             "gmw.GroundwaterMonitoringTubeStatic",
@@ -261,6 +261,16 @@ ADMIN_REORDER = (
             "frd.FrdSyncLog",
         ),
     },
+    {
+        "app": "tools",
+        "label": "Tools",
+        "models": (
+            "tools.BroImporter",
+        ),
+    },
+    {
+        "app": "django_plotly_dash"
+    }
 )
 
 if ENVIRONMENT == "production":
@@ -304,6 +314,8 @@ JAZZMIN_SETTINGS = {
         "gmw",
         "gld",
         "frd",
+        "tools",
+        "django_plotly_dash",
     ],
     "icons": {
         "auth": "fas fa-users-cog",
