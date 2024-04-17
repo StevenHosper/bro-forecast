@@ -25,7 +25,7 @@ from frd.models import (
     InstrumentConfiguration,
 )
 from datetime import datetime, date
-from main.settings.base import FRD_SETTINGS
+from main.settings.base import frd_SETTINGS
 
 
 def get_xml_payload(xml_filepath):
