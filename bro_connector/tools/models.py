@@ -3,9 +3,10 @@ import datetime
 from .choices import *
 
 class BroImporter(models.Model):
-    bro_type = models.CharField(choices=BRO_TYPES, null=False)
-    kvk_number = models.IntegerField(max_length=25, null=False)
+    bro_type = models.CharField(max_length= 100, choices=BRO_TYPES, null=False)
+    kvk_number = models.IntegerField(null=False)
     import_date = models.DateTimeField(editable=False, default=datetime.datetime.now())
+    created_date = models.DateTimeField(editable=False, default=datetime.datetime.now())
 
     class Meta:
         managed = True
