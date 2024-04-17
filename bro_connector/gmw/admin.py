@@ -17,7 +17,7 @@ def _register(model, admin_class):
     admin.site.register(model, admin_class)
 
 
-def get_searchable_fields(model_class):
+def get_searchable_fields(model_class: models.Model):
     return [
         f.name
         for f in model_class._meta.fields
